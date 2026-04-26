@@ -1,0 +1,35 @@
+
+if(typeof(tritonIdSync) != "object" || typeof(tritonIdSync.load_pixel) != "function") {
+    var tritonIdSync = {
+        load_pixel: function(src) {
+            var img;
+            if (/MSIE (\d+\.\d+);/.test(navigator.userAgent)){
+                img = new Image();
+            } else {
+                img = document.createElement('img');
+            }
+            img.src = src;
+            img.width = 0;
+            img.height = 0;
+            img.className = "triton-pixel";
+            document.body.appendChild(img);
+        },
+        load_script: function(src) {
+            var js = document.createElement('script');
+            js.type = 'text/javascript';
+            js.src = src;
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(js, s);
+        }
+    }
+}
+    
+tritonIdSync.load_pixel("https://yield-op-idsync.live.streamtheworld.com/pixel.gif?partner=an&uid=2472619318325975599&pubId=25053");
+tritonIdSync.load_pixel("https://x.bidswitch.net/sync?ssp=triton&stn=ZenoAds");
+tritonIdSync.load_pixel("https://match.adsrvr.org/track/cmf/generic?ttd_pid=tpqk5an&ttd_puid=ZenoAds");
+tritonIdSync.load_pixel("https://ums.acuityplatform.com/tum?umid=133&uid=9a0d6846-ddcd-48f3-b94a-f33ba30a9e06&rurl=https%3A%2F%2Fyield-op-idsync.live.streamtheworld.com%2Fpixel.gif%3Fpartner%3Dacu%26uid%3D___AUID___%26pubId%3D25053");
+tritonIdSync.load_pixel("https://pixel-sync.sitescout.com/dmp/pixelSync?nid=107&redir=https%3A%2F%2Fyield-op-idsync.live.streamtheworld.com%2Fpixel.gif%3Fpartner%3Dcto%26uid%3D%7BuserId%7D%26pubId%3D25053");
+tritonIdSync.load_pixel("https://yield-op-idsync.live.streamtheworld.com/pixel.gif?partner=dbm&uid=CAESEASir0FBLBVLrt4xGHCzoB4&pubId=25053");
+tritonIdSync.load_pixel("https://yield-op-idsync.live.streamtheworld.com/pixel.gif?partner=dyn&uid=7928695274838091507&pubId=25053");
+tritonIdSync.load_pixel("https://yield-op-idsync.live.streamtheworld.com/pixel.gif?partner=amb&uid=7020701048090906739&pubId=25053");
+tritonIdSync.load_pixel("https://yield-op-idsync.live.streamtheworld.com/pixel.gif?partner=dot&uid=0c48220400300651712ef5a7&pubId=25053");
