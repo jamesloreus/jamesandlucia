@@ -1,0 +1,964 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Christian Library — James &amp; Lucia</title>
+  <meta name="description" content="Christian Library by James and Lucia — browse and download free Christian books in French." />
+  <meta name="author" content="James Loreus" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Lato:wght@300;400;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --primary:      #1565c0;
+      --primary-dark: #0d47a1;
+      --primary-light:#1976d2;
+      --accent:       #90caf9;
+      --cream:        #f0f4ff;
+      --white:        #ffffff;
+      --text:         #0d1b3e;
+      --text-muted:   #5a6a85;
+      --border:       #dce6f7;
+      --shadow:       0 4px 24px rgba(13,71,161,0.09);
+      --shadow-hover: 0 10px 40px rgba(13,71,161,0.16);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Lato', sans-serif;
+      background: var(--cream);
+      color: var(--text);
+      min-height: 100vh;
+    }
+
+    /* ── TOP BAR ── */
+    .topbar {
+      background: var(--primary-dark);
+      color: rgba(255,255,255,0.85);
+      padding: 10px 0;
+      font-size: 0.82rem;
+    }
+    .topbar .inner {
+      max-width: 1100px; margin: 0 auto; padding: 0 24px;
+      display: flex; justify-content: space-between; align-items: center;
+      flex-wrap: wrap; gap: 8px;
+    }
+    .topbar .contact-links { display: flex; gap: 20px; flex-wrap: wrap; }
+    .topbar a { color: rgba(255,255,255,0.85); text-decoration: none; display: flex; align-items: center; gap: 7px; transition: color .2s; }
+    .topbar a:hover { color: var(--accent); }
+    .topbar .social-links { display: flex; gap: 14px; }
+    .topbar .social-links a { font-size: 1rem; }
+
+    /* ── HERO ── */
+    .hero {
+      background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 60%, var(--primary-light) 100%);
+      color: var(--white);
+      text-align: center;
+      padding: 68px 24px 56px;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: radial-gradient(ellipse at 50% 0%, rgba(144,202,249,0.18) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .hero-label {
+      font-size: 0.75rem; letter-spacing: 0.24em; text-transform: uppercase;
+      color: var(--accent); margin-bottom: 14px; font-weight: 700;
+    }
+    .hero h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2rem, 5vw, 3.2rem);
+      font-weight: 900; line-height: 1.15; margin-bottom: 16px;
+    }
+    .hero p {
+      font-size: 1.05rem; color: rgba(255,255,255,0.75);
+      max-width: 520px; margin: 0 auto 28px; line-height: 1.7;
+    }
+    .blue-divider {
+      width: 56px; height: 3px;
+      background: var(--accent);
+      margin: 0 auto 28px; border-radius: 2px;
+    }
+    .hero-stats {
+      display: flex; justify-content: center; gap: 40px; flex-wrap: wrap;
+      margin-top: 8px;
+    }
+    .hero-stat { text-align: center; }
+    .hero-stat .num {
+      font-family: 'Playfair Display', serif;
+      font-size: 2rem; font-weight: 900; color: var(--white);
+      display: block;
+    }
+    .hero-stat .lbl { font-size: 0.78rem; color: var(--accent); letter-spacing: 0.1em; text-transform: uppercase; }
+
+    /* ── DONATE BANNER ── */
+    .donate-bar {
+      background: var(--primary);
+      padding: 14px 24px;
+      display: flex; align-items: center; justify-content: center;
+      gap: 18px; flex-wrap: wrap;
+      color: var(--white); font-size: 0.92rem;
+    }
+    .donate-bar strong { font-weight: 700; }
+    .donate-bar a.btn-donate {
+      display: inline-flex; align-items: center; gap: 7px;
+      background: var(--white); color: var(--primary-dark);
+      font-weight: 700; font-size: 0.85rem;
+      padding: 8px 20px; border-radius: 50px;
+      text-decoration: none; letter-spacing: 0.05em;
+      transition: background .2s, transform .2s;
+    }
+    .donate-bar a.btn-donate:hover { background: var(--accent); transform: translateY(-2px); }
+
+    /* ── MARQUEE ── */
+    .welcome-banner {
+      background: var(--primary-dark);
+      color: var(--white); padding: 11px 0;
+      overflow: hidden; white-space: nowrap;
+    }
+    .welcome-banner span {
+      display: inline-block;
+      font-family: 'Playfair Display', serif;
+      font-size: 1rem; letter-spacing: 0.06em;
+      animation: marquee 20s linear infinite;
+      padding-left: 100%;
+    }
+    @keyframes marquee {
+      0%   { transform: translateX(0); }
+      100% { transform: translateX(-100%); }
+    }
+
+    /* ── MAIN LAYOUT ── */
+    .page-wrap {
+      max-width: 1100px; margin: 0 auto; padding: 48px 24px 60px;
+    }
+
+    /* ── SEARCH & FILTER ── */
+    .toolbar {
+      display: flex; gap: 14px; align-items: center;
+      flex-wrap: wrap; margin-bottom: 32px;
+    }
+    .search-box {
+      position: relative; flex: 1; min-width: 220px;
+    }
+    .search-box i {
+      position: absolute; left: 14px; top: 50%; transform: translateY(-50%);
+      color: var(--text-muted); font-size: 0.9rem;
+    }
+    .search-box input {
+      width: 100%; padding: 11px 14px 11px 40px;
+      border: 1.5px solid var(--border); border-radius: 50px;
+      font-family: 'Lato', sans-serif; font-size: 0.9rem;
+      color: var(--text); background: var(--white);
+      outline: none; transition: border-color .2s, box-shadow .2s;
+    }
+    .search-box input:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(21,101,192,0.12);
+    }
+    .result-count {
+      font-size: 0.85rem; color: var(--text-muted);
+      white-space: nowrap; padding: 0 6px;
+    }
+
+    /* ── BOOK GRID ── */
+    .book-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 20px;
+    }
+    .book-card {
+      background: var(--white);
+      border-radius: 14px;
+      box-shadow: var(--shadow);
+      padding: 22px 20px;
+      display: flex; align-items: flex-start; gap: 16px;
+      text-decoration: none; color: var(--text);
+      border-left: 4px solid var(--primary);
+      transition: transform .22s, box-shadow .22s, border-color .22s;
+      animation: fadeUp .5s ease both;
+    }
+    .book-card:hover {
+      transform: translateY(-5px);
+      box-shadow: var(--shadow-hover);
+      border-color: var(--accent);
+    }
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .book-num {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.1rem; font-weight: 900;
+      color: var(--primary); min-width: 36px;
+      line-height: 1;
+    }
+    .book-info { flex: 1; }
+    .book-title {
+      font-size: 0.93rem; font-weight: 700;
+      color: var(--text); line-height: 1.45;
+      margin-bottom: 5px;
+    }
+    .book-author {
+      font-size: 0.78rem; color: var(--text-muted);
+      font-style: italic;
+    }
+    .book-arrow {
+      color: var(--primary); font-size: 0.85rem;
+      margin-top: 3px; flex-shrink: 0;
+      transition: transform .2s;
+    }
+    .book-card:hover .book-arrow { transform: translateX(4px); }
+
+    /* hidden by search */
+    .book-card.hidden { display: none; }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--primary-dark);
+      color: rgba(255,255,255,0.65);
+      padding: 52px 24px 28px;
+    }
+    .footer-inner {
+      max-width: 1100px; margin: 0 auto;
+      display: flex; flex-wrap: wrap;
+      gap: 40px; justify-content: space-between;
+      margin-bottom: 40px;
+    }
+    .footer-brand h2 {
+      font-family: 'Playfair Display', serif;
+      color: var(--white); font-size: 1.4rem; margin-bottom: 10px;
+    }
+    .footer-brand p { font-size: 0.87rem; max-width: 240px; line-height: 1.7; }
+    .footer-col h4 {
+      color: var(--accent); font-size: 0.73rem;
+      letter-spacing: 0.18em; text-transform: uppercase;
+      margin-bottom: 16px; font-weight: 700;
+    }
+    .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+    .footer-col a {
+      color: rgba(255,255,255,0.65); text-decoration: none;
+      display: flex; align-items: center; gap: 8px;
+      transition: color .2s; font-size: 0.88rem;
+    }
+    .footer-col a:hover { color: var(--accent); }
+    .footer-social { display: flex; gap: 12px; margin-top: 4px; }
+    .footer-social a {
+      width: 38px; height: 38px;
+      background: rgba(255,255,255,0.08); border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      color: rgba(255,255,255,0.7); font-size: 1rem;
+      text-decoration: none; transition: background .2s, color .2s;
+    }
+    .footer-social a:hover { background: var(--primary-light); color: var(--white); }
+    .footer-bottom {
+      max-width: 1100px; margin: 0 auto;
+      border-top: 1px solid rgba(255,255,255,0.1);
+      padding-top: 22px;
+      display: flex; flex-wrap: wrap;
+      justify-content: space-between; gap: 10px;
+      font-size: 0.82rem;
+    }
+    .footer-bottom a { color: rgba(255,255,255,0.5); text-decoration: none; }
+
+    @media (max-width: 600px) {
+      .book-grid { grid-template-columns: 1fr; }
+      .hero-stats { gap: 24px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- TOP BAR -->
+  <div class="topbar">
+    <div class="inner">
+      <div class="contact-links">
+        <a href="tel:+50937408662"><i class="fa fa-phone"></i> (+509) 37408662</a>
+        <a href="mailto:jamesloreus@gmail.com"><i class="fa fa-envelope"></i> jamesloreus@gmail.com</a>
+      </div>
+      <div class="social-links">
+        <a href="https://web.facebook.com/Jamesandlucia" target="_blank" aria-label="Facebook"><i class="fa-brands fa-facebook"></i></a>
+        <a href="https://twitter.com/JamesandLucia2" target="_blank" aria-label="Twitter"><i class="fa-brands fa-twitter"></i></a>
+        <a href="https://www.instagram.com/jamesandlucia/" target="_blank" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+        <a href="https://www.linkedin.com/in/james-and-lucia-26a96819b/" target="_blank" aria-label="LinkedIn"><i class="fa-brands fa-linkedin"></i></a>
+      </div>
+    </div>
+  </div>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-label">James &amp; Lucia</div>
+    <h1>Christian Library</h1>
+    <div class="blue-divider"></div>
+    <p>A free collection of Christian books in French — theology, prayer, leadership, family, and more.</p>
+    <div class="hero-stats">
+      <div class="hero-stat"><span class="num">99+</span><span class="lbl">Books</span></div>
+      <div class="hero-stat"><span class="num">Free</span><span class="lbl">Download</span></div>
+      <div class="hero-stat"><span class="num">FR</span><span class="lbl">Language</span></div>
+    </div>
+  </section>
+
+  <!-- DONATE BAR -->
+  <div class="donate-bar">
+    <strong>❤️ Support this library and help us grow the collection.</strong>
+    <a class="btn-donate" href="https://www.paypal.com/donate?hosted_button_id=HWWGUEHN6MP86" target="_blank">
+      <i class="fa fa-heart"></i> Donate via PayPal
+    </a>
+  </div>
+
+  <!-- WELCOME MARQUEE -->
+  <div class="welcome-banner">
+    <span>📚 Welcome to the Christian Library — Browse &amp; Download Free Books &nbsp;•&nbsp; 📚 Welcome to the Christian Library — Browse &amp; Download Free Books &nbsp;•&nbsp;</span>
+  </div>
+
+  <!-- BOOK GRID -->
+  <div class="page-wrap">
+
+    <div class="toolbar">
+      <div class="search-box">
+        <i class="fa fa-search"></i>
+        <input type="text" id="searchInput" placeholder="Search books by title or author…" oninput="filterBooks()" />
+      </div>
+      <span class="result-count" id="resultCount">99 books</span>
+    </div>
+
+    <div class="book-grid" id="bookGrid">
+
+      <a class="book-card" href="ABC de théologie chrétienne°Charles C. RYRIE°5320.pdf" target="_blank">
+        <span class="book-num">1</span>
+        <div class="book-info"><div class="book-title">ABC de théologie chrétienne</div><div class="book-author">Charles C. Ryrie</div></div>
+        <i class="fa fa-chevron-right book-arrow"></i>
+      </a>
+
+      <a class="book-card" href="Abus Spirituels-Jacques Poujol.pdf" target="_blank">
+        <span class="book-num">2</span>
+        <div class="book-info"><div class="book-title">Abus Spirituels</div><div class="book-author">Jacques Poujol</div></div>
+        <i class="fa fa-chevron-right book-arrow"></i>
+      </a>
+
+      <a class="book-card" href="Accusateurs-ou-intercesseurs.pdf" target="_blank">
+        <span class="book-num">3</span>
+        <div class="book-info"><div class="book-title">Accusateurs ou intercesseurs</div><div class="book-author"></div></div>
+        <i class="fa fa-chevron-right book-arrow"></i>
+      </a>
+
+      <a class="book-card" href="Activer_le_don_de_prophétie_Jermaine_Francis,_Rebecca_Francis_1.pdf" target="_blank">
+        <span class="book-num">4</span>
+        <div class="book-info"><div class="book-title">Activer le don de prophétie</div><div class="book-author">Jermaine Francis, Rebecca Francis</div></div>
+        <i class="fa fa-chevron-right book-arrow"></i>
+      </a>
+
+      <a class="book-card" href="Adoration et musique-Norman Holmes.pdf" target="_blank">
+        <span class="book-num">5</span>
+        <div class="book-info"><div class="book-title">Adoration et musique</div><div class="book-author">Norman Holmes</div></div>
+        <i class="fa fa-chevron-right book-arrow"></i>
+      </a>
+
+      <a class="book-card" href="Aimer Grâce au Secours du SAINT-ESPRIT-Yves PETRAKIAN.pdf" target="_blank">
+        <span class="book-num">6</span>
+        <div class="book-info"><div class="book-title">Aimer Grâce au Secours du Saint-Esprit</div><div class="book-author">Yves Petrakian</div></div>
+        <i class="fa fa-chevron-right book-arrow"></i>
+      </a>
+
+      <a class="book-card" href="Allez...Evangelisez par la puissance de Jesus Christ.pdf" target="_blank">
+        <span class="book-num">7</span>
+        <div class="book-info"><div class="book-title">Allez… Évangélisez par la puissance de Jésus Christ</div><div class="book-author"></div></div>
+        <i class="fa fa-chevron-right book-arrow"></i>
+      </a>
+
+      <a class="book-card" href="Apprendre à dire Merci à Dieu-Léontine Dolivet.pdf" target="_blank">
+        <span class="book-num">8</span>
+        <div class="book-info"><div class="book-title">Apprendre à dire Merci à Dieu</div><div class="book-author">Léontine Dolivet</div></div>
+        <i class="fa fa-chevron-right book-arrow"></i>
+      </a>
+
+      <a class="book-card" href="Augmenter votre don prophétique _ Bill Vincent (1).pdf" target="_blank">
+        <span class="book-num">9</span>
+        <div class="book-info"><div class="book-title">Augmenter votre don prophétique</div><div class="book-author">Bill Vincent</div></div>
+        <i class="fa fa-chevron-right book-arrow"></i>
+      </a>
+
+      <a class="book-card" href="Avant goût du Boussole des Bacheliers SES.pdf" target="_blank">
+        <span class="book-num">10</span>
+        <div class="book-info"><div class="book-title">Avant-goût du Boussole des Bacheliers SES</div><div class="book-author"></div></div>
+        <i class="fa fa-chevron-right book-arrow"></i>
+      </a>
+
+      <a class="book-card" href="Avant_le_mariage_Patienter_pour_mieux_se_fréquenter_Myles_Munroe.pdf" target="_blank">
+        <span class="book-num">11</span>
+        <div class="book-info"><div class="book-title">Avant le mariage — Patienter pour mieux se fréquenter</div><div class="book-author">Myles Munroe</div></div>
+        <i class="fa fa-chevron-right book-arrow"></i>
+      </a>
+
+      <a class="book-card" href="Bataille pour la jeunesse _ Gbilé Akanni.pdf" target="_blank">
+        <span class="book-num">12</span>
+        <div class="book-info"><div class="book-title">Bataille pour la jeunesse</div><div class="book-author">Gbilé Akanni</div></div>
+        <i class="fa fa-chevron-right book-arrow"></i>
+      </a>
+
+      <a class="book-card" href="Bienvenue Saint-Esprit - Version traduite.pdf" target="_blank">
+        <span class="book-num">13</span>
+        <div class="book-info"><div class="book-title">Bienvenue Saint-Esprit</div><div class="book-author"></div></div>
+        <i class="fa fa-chevron-right book-arrow"></i>
+      </a>
+
+      <a class="book-card" href="Briser les chaînes de la corruption _ EACC_241024_220002.pdf" target="_blank">
+        <span class="book-num">14</span>
+        <div class="book-info"><div class="book-title">Briser les chaînes de la corruption</div><div class="book-author">EACC</div></div>
+        <i class="fa fa-chevron-right book-arrow"></i>
+      </a>
+
+      <a class="book-card" href="Ce que jaurais aimé savoir avant de me marier by Gary Chapman.pdf" target="_blank">
+        <span class="book-num">15</span>
+        <div class="book-info"><div class="book-title">Ce que j'aurais aimé savoir avant de me marier</div><div class="book-author">Gary Chapman</div></div>
+        <i class="fa fa-chevron-right book-arrow"></i>
+      </a>
+
+      <a class="book-card" href="Ce_qu_une_fille_attend_de_sa_mère_Cheri_Fuller.pdf" target="_blank">
+        <span class="book-num">16</span>
+        <div class="book-info"><div class="book-title">Ce qu'une fille attend de sa mère</div><div class="book-author">Cheri Fuller</div></div>
+        <i class="fa fa-chevron-right book-arrow"></i>
+      </a>
+
+      <a class="book-card" href="Ce_qui_s'est_passé_de_la_croix_au_trône°E_W_KENYON_240926_142012.pdf" target="_blank">
+        <span class="book-num">17</span>
+        <div class="book-info"><div class="book-title">Ce qui s'est passé de la croix au trône</div><div class="book-author">E. W. Kenyon</div></div>
+        <i class="fa fa-chevron-right book-arrow"></i>
+      </a>
+
+      <a class="book-card" href="Célébrer Noël avec Jesus - Max Lucado.pdf" target="_blank">
+        <span class="book-num">18</span>
+        <div class="book-info"><div class="book-title">Célébrer Noël avec Jésus</div><div class="book-author">Max Lucado</div></div>
+        <i class="fa fa-chevron-right book-arrow"></i>
+      </a>
+
+      <a class="book-card" href="Ceux qui vous accusent - Dag Heward-Mills.pdf" target="_blank">
+        <span class="book-num">19</span>
+        <div class="book-info"><div class="book-title">Ceux qui vous accusent</div><div class="book-author">Dag Heward-Mills</div></div>
+        <i class="fa fa-chevron-right book-arrow"></i>
+      </a>
+
+      <a class="book-card" href="Christ et son oeuvre.pdf" target="_blank">
+        <span class="book-num">20</span>
+        <div class="book-info"><div class="book-title">Christ et son œuvre</div><div class="book-author"></div></div>
+        <i class="fa fa-chevron-right book-arrow"></i>
+      </a>
+
+      <a class="book-card" href="Cinq moyens de surmonter la tentation°Joyce MEYER°2.pdf" target="_blank">
+        <span class="book-num">21</span>
+        <div class="book-info"><div class="book-title">Cinq moyens de surmonter la tentation</div><div class="book-author">Joyce Meyer</div></div>
+        <i class="fa fa-chevron-right book-arrow"></i>
+      </a>
+
+      <a class="book-card" href="Comment bien remplir votre ministère.pdf" target="_blank">
+        <span class="book-num">22</span>
+        <div class="book-info"><div class="book-title">Comment bien remplir votre ministère</div><div class="book-author"></div></div>
+        <i class="fa fa-chevron-right book-arrow"></i>
+      </a>
+
+      <a class="book-card" href="Comment faire Fonctionner votre Foi-Chris Oyakhilome.pdf" target="_blank">
+        <span class="book-num">23</span>
+        <div class="book-info"><div class="book-title">Comment faire fonctionner votre Foi</div><div class="book-author">Chris Oyakhilome</div></div>
+        <i class="fa fa-chevron-right book-arrow"></i>
+      </a>
+
+      <a class="book-card" href="Comment jeûner avec succès°Derek PRINCE°33.pdf" target="_blank">
+        <span class="book-num">24</span>
+        <div class="book-info"><div class="book-title">Comment jeûner avec succès</div><div class="book-author">Derek Prince</div></div>
+        <i class="fa fa-chevron-right book-arrow"></i>
+      </a>
+
+      <a class="book-card" href="Comment prier - E. Stanley Jones.pdf" target="_blank">
+        <span class="book-num">25</span>
+        <div class="book-info"><div class="book-title">Comment prier</div><div class="book-author">E. Stanley Jones</div></div>
+        <i class="fa fa-chevron-right book-arrow"></i>
+      </a>
+
+      <a class="book-card" href="Comment prier avec passion et puissance- Tommy Tenney.pdf" target="_blank">
+        <span class="book-num">26</span>
+        <div class="book-info"><div class="book-title">Comment prier avec passion et puissance</div><div class="book-author">Tommy Tenney</div></div>
+        <i class="fa fa-chevron-right book-arrow"></i>
+      </a>
+
+      <a class="book-card" href="Comment recevoir un miracle et le conserver-Chris Oyakhilome.pdf" target="_blank">
+        <span class="book-num">27</span>
+        <div class="book-info"><div class="book-title">Comment recevoir un miracle et le conserver</div><div class="book-author">Chris Oyakhilome</div></div>
+        <i class="fa fa-chevron-right book-arrow"></i>
+      </a>
+
+      <a class="book-card" href="Comment s'épanouir dans son travail.pdf" target="_blank">
+        <span class="book-num">28</span>
+        <div class="book-info"><div class="book-title">Comment s'épanouir dans son travail</div><div class="book-author"></div></div>
+        <i class="fa fa-chevron-right book-arrow"></i>
+      </a>
+
+      <a class="book-card" href="Comment surmonter les épreuves°Carlo BRUGNOLI°83.pdf" target="_blank">
+        <span class="book-num">29</span>
+        <div class="book-info"><div class="book-title">Comment surmonter les épreuves</div><div class="book-author">Carlo Brugnoli</div></div>
+        <i class="fa fa-chevron-right book-arrow"></i>
+      </a>
+
+      <a class="book-card" href="Comment_façonner_l'histoire_par_la_prière_et_le_jeûne°Derek_PRINCE°160 (1).pdf" target="_blank">
+        <span class="book-num">30</span>
+        <div class="book-info"><div class="book-title">Comment façonner l'histoire par la prière et le jeûne</div><div class="book-author">Derek Prince</div></div>
+        <i class="fa fa-chevron-right book-arrow"></i>
+      </a>
+
+      <a class="book-card" href="Comprendre l accusateur _ David Alsobrook.pdf" target="_blank">
+        <span class="book-num">31</span>
+        <div class="book-info"><div class="book-title">Comprendre l'accusateur</div><div class="book-author">David Alsobrook</div></div>
+        <i class="fa fa-chevron-right book-arrow"></i>
+      </a>
+
+      <a class="book-card" href="Comprendre les bases de la foi°Olivier DERAIN°36.pdf" target="_blank">
+        <span class="book-num">32</span>
+        <div class="book-info"><div class="book-title">Comprendre les bases de la foi</div><div class="book-author">Olivier Derain</div></div>
+        <i class="fa fa-chevron-right book-arrow"></i>
+      </a>
+
+      <a class="book-card" href="Comprendre_la_réalité_du_paradis_et_de_l_enfer_Cre_241018_175542.pdf" target="_blank">
+        <span class="book-num">33</span>
+        <div class="book-info"><div class="book-title">Comprendre la réalité du paradis et de l'enfer</div><div class="book-author"></div></div>
+        <i class="fa fa-chevron-right book-arrow"></i>
+      </a>
+
+      <a class="book-card" href="CONNAÎTRE CHRIST .pdf" target="_blank">
+        <span class="book-num">34</span>
+        <div class="book-info"><div class="book-title">Connaître Christ</div><div class="book-author"></div></div>
+        <i class="fa fa-chevron-right book-arrow"></i>
+      </a>
+
+      <a class="book-card" href="Connaître Dieu par le jeûne -Elmer Towns.pdf" target="_blank">
+        <span class="book-num">35</span>
+        <div class="book-info"><div class="book-title">Connaître Dieu par le jeûne</div><div class="book-author">Elmer Towns</div></div>
+        <i class="fa fa-chevron-right book-arrow"></i>
+      </a>
+
+      <a class="book-card" href="Connaître Dieu par son nom-David Wilkerson.pdf" target="_blank">
+        <span class="book-num">36</span>
+        <div class="book-info"><div class="book-title">Connaître Dieu par son nom</div><div class="book-author">David Wilkerson</div></div>
+        <i class="fa fa-chevron-right book-arrow"></i>
+      </a>
+
+      <a class="book-card" href="Connaitre_Christ_Ordre_Divin.pdf" target="_blank">
+        <span class="book-num">37</span>
+        <div class="book-info"><div class="book-title">Connaître Christ — Ordre Divin</div><div class="book-author"></div></div>
+        <i class="fa fa-chevron-right book-arrow"></i>
+      </a>
+
+      <a class="book-card" href="Connaitre-les-profondeurs-de-Jesus-Christ Jeanne Guyon.pdf" target="_blank">
+        <span class="book-num">38</span>
+        <div class="book-info"><div class="book-title">Connaître les profondeurs de Jésus Christ</div><div class="book-author">Jeanne Guyon</div></div>
+        <i class="fa fa-chevron-right book-arrow"></i>
+      </a>
+
+      <a class="book-card" href="Cultiver la Reconnaissance-Nancy DeMoss Wolgemuth.pdf" target="_blank">
+        <span class="book-num">39</span>
+        <div class="book-info"><div class="book-title">Cultiver la Reconnaissance</div><div class="book-author">Nancy DeMoss Wolgemuth</div></div>
+        <i class="fa fa-chevron-right book-arrow"></i>
+      </a>
+
+      <a class="book-card" href="Dag Heward-Mills_ la-belle-la-bete-le-pasteur.pdf" target="_blank">
+        <span class="book-num">40</span>
+        <div class="book-info"><div class="book-title">La belle, la bête, le pasteur</div><div class="book-author">Dag Heward-Mills</div></div>
+        <i class="fa fa-chevron-right book-arrow"></i>
+      </a>
+
+      <a class="book-card" href="De La Croix Jusqu'au Trône_240926_141951.pdf" target="_blank">
+        <span class="book-num">41</span>
+        <div class="book-info"><div class="book-title">De la Croix jusqu'au Trône</div><div class="book-author"></div></div>
+        <i class="fa fa-chevron-right book-arrow"></i>
+      </a>
+
+      <a class="book-card" href="Découvrez la foi _ Smith-Wilgglesworth-.pdf" target="_blank">
+        <span class="book-num">42</span>
+        <div class="book-info"><div class="book-title">Découvrez la foi</div><div class="book-author">Smith Wigglesworth</div></div>
+        <i class="fa fa-chevron-right book-arrow"></i>
+      </a>
+
+      <a class="book-card" href="délivrance du péché de paresse. Zacharias Tanee Fomun-1.pdf" target="_blank">
+        <span class="book-num">43</span>
+        <div class="book-info"><div class="book-title">Délivrance du péché de paresse</div><div class="book-author">Zacharias Tanee Fomun</div></div>
+        <i class="fa fa-chevron-right book-arrow"></i>
+      </a>
+
+      <a class="book-card" href="Dénonçons l accusateur des frères_Frangipane Francis.pdf" target="_blank">
+        <span class="book-num">44</span>
+        <div class="book-info"><div class="book-title">Dénonçons l'accusateur des frères</div><div class="book-author">Francis Frangipane</div></div>
+        <i class="fa fa-chevron-right book-arrow"></i>
+      </a>
+
+      <a class="book-card" href="Détruire les Oeuvres de la Sorcellerie par le jeûne et la Prière-Ruth Brown.pdf" target="_blank">
+        <span class="book-num">45</span>
+        <div class="book-info"><div class="book-title">Détruire les Œuvres de la Sorcellerie par le jeûne et la Prière</div><div class="book-author">Ruth Brown</div></div>
+        <i class="fa fa-chevron-right book-arrow"></i>
+      </a>
+
+      <a class="book-card" href="Devenir un Prophète de Niveau Supérieur_ Jennifer _240904_214528.pdf" target="_blank">
+        <span class="book-num">46</span>
+        <div class="book-info"><div class="book-title">Devenir un Prophète de Niveau Supérieur</div><div class="book-author">Jennifer</div></div>
+        <i class="fa fa-chevron-right book-arrow"></i>
+      </a>
+
+      <a class="book-card" href="Dictionnaire des Prophètes_Paula A Price_240904_214628.pdf" target="_blank">
+        <span class="book-num">47</span>
+        <div class="book-info"><div class="book-title">Dictionnaire des Prophètes</div><div class="book-author">Paula A. Price</div></div>
+        <i class="fa fa-chevron-right book-arrow"></i>
+      </a>
+
+      <a class="book-card" href="Dieu révélé dans ses noms_Derek Prince.pdf" target="_blank">
+        <span class="book-num">48</span>
+        <div class="book-info"><div class="book-title">Dieu révélé dans ses noms</div><div class="book-author">Derek Prince</div></div>
+        <i class="fa fa-chevron-right book-arrow"></i>
+      </a>
+
+      <a class="book-card" href="Diriger_comme_Jésus_40_leçons_de_Leadership_240320_182532.pdf" target="_blank">
+        <span class="book-num">49</span>
+        <div class="book-info"><div class="book-title">Diriger comme Jésus — 40 leçons de Leadership</div><div class="book-author"></div></div>
+        <i class="fa fa-chevron-right book-arrow"></i>
+      </a>
+
+      <a class="book-card" href="Discerner la Sorcellerie Prophétique - JENNIFER LE_240910_232221.pdf" target="_blank">
+        <span class="book-num">50</span>
+        <div class="book-info"><div class="book-title">Discerner la Sorcellerie Prophétique</div><div class="book-author">Jennifer</div></div>
+        <i class="fa fa-chevron-right book-arrow"></i>
+      </a>
+
+      <a class="book-card" href="DL Moody, Amener les âmes au Christ-Janet & Geoff Benge.pdf" target="_blank">
+        <span class="book-num">51</span>
+        <div class="book-info"><div class="book-title">DL Moody — Amener les âmes au Christ</div><div class="book-author">Janet &amp; Geoff Benge</div></div>
+        <i class="fa fa-chevron-right book-arrow"></i>
+      </a>
+
+      <a class="book-card" href="Domine Ton Monde-David Oyedepo.pdf" target="_blank">
+        <span class="book-num">52</span>
+        <div class="book-info"><div class="book-title">Domine Ton Monde</div><div class="book-author">David Oyedepo</div></div>
+        <i class="fa fa-chevron-right book-arrow"></i>
+      </a>
+
+      <a class="book-card" href="Dons et ministères du Saint-Esprit - Lester Sumrall.pdf" target="_blank">
+        <span class="book-num">53</span>
+        <div class="book-info"><div class="book-title">Dons et ministères du Saint-Esprit</div><div class="book-author">Lester Sumrall</div></div>
+        <i class="fa fa-chevron-right book-arrow"></i>
+      </a>
+
+      <a class="book-card" href="École_des_Prophètes_Formation_avancée_pour_le_mini_240903_123705.pdf" target="_blank">
+        <span class="book-num">54</span>
+        <div class="book-info"><div class="book-title">École des Prophètes — Formation avancée</div><div class="book-author"></div></div>
+        <i class="fa fa-chevron-right book-arrow"></i>
+      </a>
+
+      <a class="book-card" href="Eglises-et-abus-spirituels.pdf" target="_blank">
+        <span class="book-num">55</span>
+        <div class="book-info"><div class="book-title">Églises et abus spirituels</div><div class="book-author"></div></div>
+        <i class="fa fa-chevron-right book-arrow"></i>
+      </a>
+
+      <a class="book-card" href="Elever_une_fille_spirituellement_forte_Susie_Shellenberger.pdf" target="_blank">
+        <span class="book-num">56</span>
+        <div class="book-info"><div class="book-title">Élever une fille spirituellement forte</div><div class="book-author">Susie Shellenberger</div></div>
+        <i class="fa fa-chevron-right book-arrow"></i>
+      </a>
+
+      <a class="book-card" href="Elie,_un_homme_d'héroisme_et_d'humilité_Charles_R_Swindoll.pdf" target="_blank">
+        <span class="book-num">57</span>
+        <div class="book-info"><div class="book-title">Élie, un homme d'héroïsme et d'humilité</div><div class="book-author">Charles R. Swindoll</div></div>
+        <i class="fa fa-chevron-right book-arrow"></i>
+      </a>
+
+      <a class="book-card" href="En attendant Isaac _ Mildred Kingsley Okonkwo.pdf" target="_blank">
+        <span class="book-num">58</span>
+        <div class="book-info"><div class="book-title">En attendant Isaac</div><div class="book-author">Mildred Kingsley Okonkwo</div></div>
+        <i class="fa fa-chevron-right book-arrow"></i>
+      </a>
+
+      <a class="book-card" href="Epouse efficace d un ministre_Faith A. Oyedepo.pdf" target="_blank">
+        <span class="book-num">59</span>
+        <div class="book-info"><div class="book-title">Épouse efficace d'un ministre</div><div class="book-author">Faith A. Oyedepo</div></div>
+        <i class="fa fa-chevron-right book-arrow"></i>
+      </a>
+
+      <a class="book-card" href="ÉQUIPER_SON_MINISTÈRE_DE_LOUANGE_tome_II_PAR_ÉV_KAN_PARFAIT.pdf" target="_blank">
+        <span class="book-num">60</span>
+        <div class="book-info"><div class="book-title">Équiper son ministère de louange — Tome II</div><div class="book-author">Év. Kan Parfait</div></div>
+        <i class="fa fa-chevron-right book-arrow"></i>
+      </a>
+
+      <a class="book-card" href="Éric Kayayan - La maîtrise de soi.pdf" target="_blank">
+        <span class="book-num">61</span>
+        <div class="book-info"><div class="book-title">La maîtrise de soi</div><div class="book-author">Éric Kayayan</div></div>
+        <i class="fa fa-chevron-right book-arrow"></i>
+      </a>
+
+      <a class="book-card" href="Eschatologie Roland.pdf" target="_blank">
+        <span class="book-num">62</span>
+        <div class="book-info"><div class="book-title">Eschatologie</div><div class="book-author">Roland</div></div>
+        <i class="fa fa-chevron-right book-arrow"></i>
+      </a>
+
+      <a class="book-card" href="Et_si_je_ne_desire_pas_Dieu_le_combat_pour_la_joie_John_Piper.pdf" target="_blank">
+        <span class="book-num">63</span>
+        <div class="book-info"><div class="book-title">Et si je ne désire pas Dieu — le combat pour la joie</div><div class="book-author">John Piper</div></div>
+        <i class="fa fa-chevron-right book-arrow"></i>
+      </a>
+
+      <a class="book-card" href="Êtes-vous Troublé par des Péchés Sexuels-Revue.pdf" target="_blank">
+        <span class="book-num">64</span>
+        <div class="book-info"><div class="book-title">Êtes-vous troublé par des péchés sexuels ?</div><div class="book-author"></div></div>
+        <i class="fa fa-chevron-right book-arrow"></i>
+      </a>
+
+      <a class="book-card" href="ETHIQUE MINISTERIELLE - JOE TRULL ET JAMES CARTER.pdf" target="_blank">
+        <span class="book-num">65</span>
+        <div class="book-info"><div class="book-title">Éthique ministérielle</div><div class="book-author">Joe Trull &amp; James Carter</div></div>
+        <i class="fa fa-chevron-right book-arrow"></i>
+      </a>
+
+      <a class="book-card" href="Éthique ministérielle Dag Heward _241006_000414.pdf" target="_blank">
+        <span class="book-num">66</span>
+        <div class="book-info"><div class="book-title">Éthique ministérielle</div><div class="book-author">Dag Heward-Mills</div></div>
+        <i class="fa fa-chevron-right book-arrow"></i>
+      </a>
+
+      <a class="book-card" href="Etre Reconnaissant à Dieu-Bernard Guy.pdf" target="_blank">
+        <span class="book-num">67</span>
+        <div class="book-info"><div class="book-title">Être Reconnaissant à Dieu</div><div class="book-author">Bernard Guy</div></div>
+        <i class="fa fa-chevron-right book-arrow"></i>
+      </a>
+
+      <a class="book-card" href="Evangélisation par le Feu - Reinhard Bonnke.pdf" target="_blank">
+        <span class="book-num">68</span>
+        <div class="book-info"><div class="book-title">Évangélisation par le Feu</div><div class="book-author">Reinhard Bonnke</div></div>
+        <i class="fa fa-chevron-right book-arrow"></i>
+      </a>
+
+      <a class="book-card" href="Exhortations aux jeunes chretiens_John Charles Ryle.pdf" target="_blank">
+        <span class="book-num">69</span>
+        <div class="book-info"><div class="book-title">Exhortations aux jeunes chrétiens</div><div class="book-author">J. C. Ryle</div></div>
+        <i class="fa fa-chevron-right book-arrow"></i>
+      </a>
+
+      <a class="book-card" href="Exode 20.13.13 tu ne tueras point.pdf" target="_blank">
+        <span class="book-num">70</span>
+        <div class="book-info"><div class="book-title">Exode 20:13 — Tu ne tueras point</div><div class="book-author"></div></div>
+        <i class="fa fa-chevron-right book-arrow"></i>
+      </a>
+
+      <a class="book-card" href="Exploits dans le ministère _ David Oyedepo.pdf" target="_blank">
+        <span class="book-num">71</span>
+        <div class="book-info"><div class="book-title">Exploits dans le ministère</div><div class="book-author">David Oyedepo</div></div>
+        <i class="fa fa-chevron-right book-arrow"></i>
+      </a>
+
+      <a class="book-card" href="Faire L'Expérience des Miracles de Jésus-Kay Arthur Pete de Lacy.pdf" target="_blank">
+        <span class="book-num">72</span>
+        <div class="book-info"><div class="book-title">Faire l'expérience des Miracles de Jésus</div><div class="book-author">Kay Arthur &amp; Pete de Lacy</div></div>
+        <i class="fa fa-chevron-right book-arrow"></i>
+      </a>
+
+      <a class="book-card" href="Fille, évite la tentation_Dag Heward Mills.pdf" target="_blank">
+        <span class="book-num">73</span>
+        <div class="book-info"><div class="book-title">Fille, évite la tentation</div><div class="book-author">Dag Heward-Mills</div></div>
+        <i class="fa fa-chevron-right book-arrow"></i>
+      </a>
+
+      <a class="book-card" href="Fondamentaux du leadership - Delmas_Pour le Participant - Fev 2024.pdf" target="_blank">
+        <span class="book-num">74</span>
+        <div class="book-info"><div class="book-title">Fondamentaux du leadership</div><div class="book-author">Delmas — Fév 2024</div></div>
+        <i class="fa fa-chevron-right book-arrow"></i>
+      </a>
+
+      <a class="book-card" href="Gérer les Moments Difficiles-Cours.pdf" target="_blank">
+        <span class="book-num">75</span>
+        <div class="book-info"><div class="book-title">Gérer les Moments Difficiles</div><div class="book-author"></div></div>
+        <i class="fa fa-chevron-right book-arrow"></i>
+      </a>
+
+      <a class="book-card" href="Gérez vos émotions-andrew-wommack.pdf" target="_blank">
+        <span class="book-num">76</span>
+        <div class="book-info"><div class="book-title">Gérez vos émotions</div><div class="book-author">Andrew Wommack</div></div>
+        <i class="fa fa-chevron-right book-arrow"></i>
+      </a>
+
+      <a class="book-card" href="Gérez_vos_émotions_ne_les_laissez_pas_vous_dominer_Joyce_Meyer.pdf" target="_blank">
+        <span class="book-num">77</span>
+        <div class="book-info"><div class="book-title">Gérez vos émotions, ne les laissez pas vous dominer</div><div class="book-author">Joyce Meyer</div></div>
+        <i class="fa fa-chevron-right book-arrow"></i>
+      </a>
+
+      <a class="book-card" href="Guide pour le Jeûne et la Prière-Campus Crusade for Christ International.pdf" target="_blank">
+        <span class="book-num">78</span>
+        <div class="book-info"><div class="book-title">Guide pour le Jeûne et la Prière</div><div class="book-author">Campus Crusade for Christ International</div></div>
+        <i class="fa fa-chevron-right book-arrow"></i>
+      </a>
+
+      <a class="book-card" href="Hagin Aspirez aux dons spirituels.pdf" target="_blank">
+        <span class="book-num">79</span>
+        <div class="book-info"><div class="book-title">Aspirez aux dons spirituels</div><div class="book-author">Kenneth E. Hagin</div></div>
+        <i class="fa fa-chevron-right book-arrow"></i>
+      </a>
+
+      <a class="book-card" href="Henoch.pdf" target="_blank">
+        <span class="book-num">80</span>
+        <div class="book-info"><div class="book-title">Hénoch</div><div class="book-author"></div></div>
+        <i class="fa fa-chevron-right book-arrow"></i>
+      </a>
+
+      <a class="book-card" href="Huit_principes_à_tuliser_en_temps_de_tentations,_tests_et_épreuves.pdf" target="_blank">
+        <span class="book-num">81</span>
+        <div class="book-info"><div class="book-title">Huit principes en temps de tentations, tests et épreuves</div><div class="book-author"></div></div>
+        <i class="fa fa-chevron-right book-arrow"></i>
+      </a>
+
+      <a class="book-card" href="Il a donné les dons aux hommes - Kenneth E. Hagin.pdf" target="_blank">
+        <span class="book-num">82</span>
+        <div class="book-info"><div class="book-title">Il a donné les dons aux hommes</div><div class="book-author">Kenneth E. Hagin</div></div>
+        <i class="fa fa-chevron-right book-arrow"></i>
+      </a>
+
+      <a class="book-card" href="Il est ressuscité.pdf" target="_blank">
+        <span class="book-num">83</span>
+        <div class="book-info"><div class="book-title">Il est ressuscité</div><div class="book-author"></div></div>
+        <i class="fa fa-chevron-right book-arrow"></i>
+      </a>
+
+      <a class="book-card" href="Intégrité_Les_principes_de_l'éthique_Chrétienne_Richard_M_Davis.pdf" target="_blank">
+        <span class="book-num">84</span>
+        <div class="book-info"><div class="book-title">Intégrité — Les principes de l'éthique Chrétienne</div><div class="book-author">Richard M. Davis</div></div>
+        <i class="fa fa-chevron-right book-arrow"></i>
+      </a>
+
+      <a class="book-card" href="Introduction à la théologie - Paul Enns.pdf" target="_blank">
+        <span class="book-num">85</span>
+        <div class="book-info"><div class="book-title">Introduction à la théologie</div><div class="book-author">Paul Enns</div></div>
+        <i class="fa fa-chevron-right book-arrow"></i>
+      </a>
+
+      <a class="book-card" href="Introduction à la Théologie chrétienne.pdf" target="_blank">
+        <span class="book-num">86</span>
+        <div class="book-info"><div class="book-title">Introduction à la Théologie chrétienne</div><div class="book-author"></div></div>
+        <i class="fa fa-chevron-right book-arrow"></i>
+      </a>
+
+      <a class="book-card" href="Introduction au culte chrétien _ Shepherds.pdf" target="_blank">
+        <span class="book-num">87</span>
+        <div class="book-info"><div class="book-title">Introduction au culte chrétien</div><div class="book-author">Shepherds</div></div>
+        <i class="fa fa-chevron-right book-arrow"></i>
+      </a>
+
+      <a class="book-card" href="Introduction aux 5 Ministères _ Olivier Derain - Paul Enns.pdf" target="_blank">
+        <span class="book-num">88</span>
+        <div class="book-info"><div class="book-title">Introduction aux 5 Ministères</div><div class="book-author">Olivier Derain</div></div>
+        <i class="fa fa-chevron-right book-arrow"></i>
+      </a>
+
+      <a class="book-card" href="Introduction_à_la_théologie_de_la_nouvelle_alliance_extrait_René.pdf" target="_blank">
+        <span class="book-num">89</span>
+        <div class="book-info"><div class="book-title">Introduction à la théologie de la nouvelle alliance</div><div class="book-author">René</div></div>
+        <i class="fa fa-chevron-right book-arrow"></i>
+      </a>
+
+      <a class="book-card" href="Je vous ai appelés amis - Andres Cardenas Matute.pdf" target="_blank">
+        <span class="book-num">90</span>
+        <div class="book-info"><div class="book-title">Je vous ai appelés amis</div><div class="book-author">Andrés Cárdenas Matute</div></div>
+        <i class="fa fa-chevron-right book-arrow"></i>
+      </a>
+
+      <a class="book-card" href="Jesus sur le Leadership  - Gene Wilkes_240320_182556.pdf" target="_blank">
+        <span class="book-num">91</span>
+        <div class="book-info"><div class="book-title">Jésus sur le Leadership</div><div class="book-author">Gene Wilkes</div></div>
+        <i class="fa fa-chevron-right book-arrow"></i>
+      </a>
+
+      <a class="book-card" href="Jeune et Priere, calendrier 2024-Campus Pour Christ.pdf" target="_blank">
+        <span class="book-num">92</span>
+        <div class="book-info"><div class="book-title">Jeûne et Prière — Calendrier 2024</div><div class="book-author">Campus Pour Christ</div></div>
+        <i class="fa fa-chevron-right book-arrow"></i>
+      </a>
+
+      <a class="book-card" href="Jeunesse et Sexualité-Méphy MAKOPE.pdf" target="_blank">
+        <span class="book-num">93</span>
+        <div class="book-info"><div class="book-title">Jeunesse et Sexualité</div><div class="book-author">Méphy Makope</div></div>
+        <i class="fa fa-chevron-right book-arrow"></i>
+      </a>
+
+      <a class="book-card" href="jézabel et le Ministère Prophétique - Jonas Clark.pdf" target="_blank">
+        <span class="book-num">94</span>
+        <div class="book-info"><div class="book-title">Jézabel et le Ministère Prophétique</div><div class="book-author">Jonas Clark</div></div>
+        <i class="fa fa-chevron-right book-arrow"></i>
+      </a>
+
+      <a class="book-card" href="Joseph, surmonter les obstacles par la fidélité - Gene Getz.pdf" target="_blank">
+        <span class="book-num">95</span>
+        <div class="book-info"><div class="book-title">Joseph — Surmonter les obstacles par la fidélité</div><div class="book-author">Gene Getz</div></div>
+        <i class="fa fa-chevron-right book-arrow"></i>
+      </a>
+
+      <a class="book-card" href="L' Amitié - Pasteur Aaron Kayayan_241007_150837.pdf" target="_blank">
+        <span class="book-num">96</span>
+        <div class="book-info"><div class="book-title">L'Amitié</div><div class="book-author">Pasteur Aaron Kayayan</div></div>
+        <i class="fa fa-chevron-right book-arrow"></i>
+      </a>
+
+      <a class="book-card" href="images/QR Code.png" target="_blank">
+        <span class="book-num"><i class="fa fa-qrcode" style="font-size:1rem"></i></span>
+        <div class="book-info"><div class="book-title">QR Code — Accès rapide</div><div class="book-author">Scannez pour accéder à la bibliothèque</div></div>
+        <i class="fa fa-chevron-right book-arrow"></i>
+      </a>
+
+    </div><!-- /book-grid -->
+  </div><!-- /page-wrap -->
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <h2>James &amp; Lucia</h2>
+        <p>Partager la culture, la musique et la connaissance avec le monde à travers Radio Brillant Haiti.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Contact</h4>
+        <ul>
+          <li><a href="tel:+50937408662"><i class="fa fa-phone"></i> (+509) 37408662</a></li>
+          <li><a href="mailto:jamesloreus@gmail.com"><i class="fa fa-envelope"></i> jamesloreus@gmail.com</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Suivez-nous</h4>
+        <div class="footer-social">
+          <a href="https://web.facebook.com/Jamesandlucia" target="_blank" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+          <a href="https://twitter.com/JamesandLucia2" target="_blank" aria-label="Twitter"><i class="fa-brands fa-twitter"></i></a>
+          <a href="https://www.instagram.com/jamesandlucia/" target="_blank" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+          <a href="https://www.linkedin.com/in/james-and-lucia-26a96819b/" target="_blank" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>&copy; 2026 James &amp; Lucia. All Rights Reserved.</span>
+      <span>Created by <a href="mailto:jamesloreus@gmail.com">James Loreus</a></span>
+    </div>
+  </footer>
+
+  <script>
+    function filterBooks() {
+      const q = document.getElementById('searchInput').value.toLowerCase();
+      const cards = document.querySelectorAll('.book-card');
+      let visible = 0;
+      cards.forEach(card => {
+        const text = card.innerText.toLowerCase();
+        if (text.includes(q)) { card.classList.remove('hidden'); visible++; }
+        else card.classList.add('hidden');
+      });
+      document.getElementById('resultCount').textContent = visible + ' book' + (visible !== 1 ? 's' : '');
+    }
+  </script>
+
+</body>
+</html>
