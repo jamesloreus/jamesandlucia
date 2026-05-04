@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Radio Télé Brillant Haiti — James &amp; Lucia</title>
+  <meta name="description" content="Radio Télé Brillant Haiti — Live radio, broadcasts, prayer schedules and more from James and Lucia." />
+  <meta name="author" content="James Loreus" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Lato:wght@300;400;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --primary:      #1565c0;
+      --primary-dark: #0d47a1;
+      --primary-light:#1976d2;
+      --accent:       #90caf9;
+      --cream:        #f0f4ff;
+      --white:        #ffffff;
+      --text:         #0d1b3e;
+      --text-muted:   #5a6a85;
+      --border:       #dce6f7;
+      --shadow:       0 4px 24px rgba(13,71,161,0.09);
+      --shadow-hover: 0 12px 40px rgba(13,71,161,0.16);
+    }
+
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Lato', sans-serif; background: var(--cream); color: var(--text); min-height: 100vh; }
+
+    /* ── TOP BAR ── */
+    .topbar { background: var(--primary-dark); color: rgba(255,255,255,0.85); padding: 10px 0; font-size: 0.82rem; }
+    .topbar .inner {
+      max-width: 1100px; margin: 0 auto; padding: 0 24px;
+      display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px;
+    }
+    .topbar .contact-links { display: flex; gap: 20px; flex-wrap: wrap; }
+    .topbar a { color: rgba(255,255,255,0.85); text-decoration: none; display: flex; align-items: center; gap: 7px; transition: color .2s; }
+    .topbar a:hover { color: var(--accent); }
+    .topbar .social-links { display: flex; gap: 14px; }
+    .topbar .social-links a { font-size: 1rem; }
+
+    /* ── NAV ── */
+    nav.main-nav {
+      background: var(--white);
+      border-bottom: 2px solid var(--border);
+      position: sticky; top: 0; z-index: 100;
+      box-shadow: 0 2px 12px rgba(13,71,161,0.07);
+    }
+    nav.main-nav .nav-inner {
+      max-width: 1100px; margin: 0 auto; padding: 0 24px;
+      display: flex; align-items: center; justify-content: space-between;
+      height: 58px; gap: 20px;
+    }
+    .nav-brand {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.15rem; font-weight: 900;
+      color: var(--primary-dark); text-decoration: none;
+    }
+    .nav-links { display: flex; gap: 28px; list-style: none; }
+    .nav-links a {
+      color: var(--text-muted); text-decoration: none;
+      font-size: 0.88rem; font-weight: 700; letter-spacing: 0.04em;
+      text-transform: uppercase; transition: color .2s;
+    }
+    .nav-links a:hover, .nav-links a.active { color: var(--primary); }
+    @media(max-width:640px){ .nav-links { display: none; } }
+
+    /* ── HERO ── */
+    .hero {
+      background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 60%, var(--primary-light) 100%);
+      color: var(--white); text-align: center;
+      padding: 72px 24px 60px; position: relative; overflow: hidden;
+    }
+    .hero::before {
+      content: ''; position: absolute; inset: 0;
+      background: radial-gradient(ellipse at 50% 0%, rgba(144,202,249,0.18) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .hero-label { font-size: 0.75rem; letter-spacing: 0.24em; text-transform: uppercase; color: var(--accent); margin-bottom: 14px; font-weight: 700; }
+    .hero h1 { font-family: 'Playfair Display', serif; font-size: clamp(2rem, 5vw, 3.4rem); font-weight: 900; line-height: 1.15; margin-bottom: 16px; }
+    .hero p { font-size: 1.05rem; color: rgba(255,255,255,0.75); max-width: 560px; margin: 0 auto 32px; line-height: 1.7; }
+    .blue-divider { width: 56px; height: 3px; background: var(--accent); margin: 0 auto 30px; border-radius: 2px; }
+    .hero-btns { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+    .btn-primary {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: var(--white); color: var(--primary-dark);
+      font-weight: 700; font-size: 0.9rem; padding: 12px 26px;
+      border-radius: 50px; text-decoration: none; letter-spacing: 0.04em;
+      transition: background .2s, transform .2s;
+    }
+    .btn-primary:hover { background: var(--accent); transform: translateY(-2px); }
+    .btn-outline {
+      display: inline-flex; align-items: center; gap: 8px;
+      border: 2px solid rgba(255,255,255,0.6); color: var(--white);
+      font-weight: 700; font-size: 0.9rem; padding: 12px 26px;
+      border-radius: 50px; text-decoration: none; letter-spacing: 0.04em;
+      transition: border-color .2s, background .2s, transform .2s;
+    }
+    .btn-outline:hover { border-color: var(--white); background: rgba(255,255,255,0.1); transform: translateY(-2px); }
+
+    /* ── MARQUEE ── */
+    .welcome-banner { background: var(--primary-dark); color: var(--white); padding: 11px 0; overflow: hidden; white-space: nowrap; }
+    .welcome-banner span {
+      display: inline-block; font-family: 'Playfair Display', serif;
+      font-size: 1rem; letter-spacing: 0.06em;
+      animation: marquee 22s linear infinite; padding-left: 100%;
+    }
+    @keyframes marquee { 0%{transform:translateX(0)} 100%{transform:translateX(-100%)} }
+
+    /* ── SECTIONS ── */
+    .section { max-width: 1000px; margin: 0 auto; padding: 60px 24px; }
+    .section-title { font-family: 'Playfair Display', serif; font-size: 1.65rem; font-weight: 700; color: var(--primary-dark); margin-bottom: 4px; }
+    .section-sub { font-size: 0.88rem; color: var(--text-muted); margin-bottom: 32px; letter-spacing: 0.04em; }
+
+    @keyframes fadeUp { from{opacity:0;transform:translateY(20px)} to{opacity:1;transform:translateY(0)} }
+
+    /* ── MEDIA CARDS ── */
+    .media-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+    @media(max-width:680px){ .media-grid { grid-template-columns: 1fr; } }
+
+    .media-card {
+      background: var(--white); border-radius: 16px; box-shadow: var(--shadow);
+      overflow: hidden; border-top: 4px solid var(--primary);
+      animation: fadeUp .6s ease both;
+      transition: box-shadow .25s, transform .25s;
+    }
+    .media-card:hover { box-shadow: var(--shadow-hover); transform: translateY(-4px); }
+    .media-card-header {
+      background: var(--primary); color: var(--white);
+      padding: 14px 20px; display: flex; align-items: center; gap: 10px;
+    }
+    .media-card-header i { font-size: 1.1rem; }
+    .media-card-header span { font-family: 'Playfair Display', serif; font-size: 1rem; font-weight: 700; }
+    .media-card-body { padding: 20px; }
+    .media-card-body p { font-size: 0.87rem; color: var(--text-muted); margin-bottom: 14px; line-height: 1.6; }
+    .media-card-body iframe { width: 100%; border-radius: 10px; display: block; }
+
+    /* ── SCHEDULE CARDS ── */
+    .schedule-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 20px; }
+    .schedule-card {
+      background: var(--white); border-radius: 14px; box-shadow: var(--shadow);
+      padding: 26px 22px; border-left: 4px solid var(--primary);
+      animation: fadeUp .5s ease both;
+      transition: box-shadow .25s, transform .25s;
+    }
+    .schedule-card:hover { box-shadow: var(--shadow-hover); transform: translateY(-4px); }
+    .schedule-icon { font-size: 1.6rem; color: var(--primary); margin-bottom: 12px; }
+    .schedule-card h3 { font-family: 'Playfair Display', serif; font-size: 1.05rem; color: var(--primary-dark); margin-bottom: 6px; }
+    .schedule-card .time { font-size: 0.82rem; font-weight: 700; color: var(--primary); letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 8px; }
+    .schedule-card p { font-size: 0.84rem; color: var(--text-muted); line-height: 1.55; }
+
+    /* ── VERSE SECTION ── */
+    .verse-section {
+      background: linear-gradient(135deg, var(--primary-dark), var(--primary));
+      color: var(--white); padding: 60px 24px; text-align: center;
+    }
+    .verse-section .label { font-size: 0.75rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--accent); margin-bottom: 14px; font-weight: 700; }
+    .verse-reference { font-family: 'Playfair Display', serif; font-size: 1.5rem; font-weight: 900; margin-bottom: 6px; }
+    .verse-month { font-size: 0.82rem; color: rgba(255,255,255,0.6); margin-bottom: 28px; letter-spacing: 0.08em; text-transform: uppercase; }
+    .verse-text {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.2rem, 2.5vw, 1.6rem);
+      font-style: italic; line-height: 1.6;
+      max-width: 700px; margin: 0 auto 24px;
+      color: rgba(255,255,255,0.92);
+    }
+    .verse-commentary {
+      font-size: 0.93rem; color: rgba(255,255,255,0.7);
+      max-width: 680px; margin: 0 auto; line-height: 1.75;
+    }
+
+    /* ── DONATE BAR ── */
+    .donate-bar {
+      background: var(--primary); padding: 16px 24px;
+      display: flex; align-items: center; justify-content: center;
+      gap: 18px; flex-wrap: wrap; color: var(--white); font-size: 0.92rem;
+    }
+    .donate-bar strong { font-weight: 700; }
+    .donate-bar a.btn-donate {
+      display: inline-flex; align-items: center; gap: 7px;
+      background: var(--white); color: var(--primary-dark);
+      font-weight: 700; font-size: 0.85rem; padding: 9px 22px;
+      border-radius: 50px; text-decoration: none; letter-spacing: 0.05em;
+      transition: background .2s, transform .2s;
+    }
+    .donate-bar a.btn-donate:hover { background: var(--accent); transform: translateY(-2px); }
+
+    /* ── CONTACT SECTION ── */
+    .contact-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; }
+    .contact-card {
+      background: var(--white); border-radius: 14px; box-shadow: var(--shadow);
+      padding: 28px 22px; text-align: center;
+      border-top: 4px solid var(--primary);
+      animation: fadeUp .5s ease both;
+      transition: box-shadow .25s, transform .25s;
+    }
+    .contact-card:hover { box-shadow: var(--shadow-hover); transform: translateY(-4px); }
+    .contact-card .icon {
+      width: 52px; height: 52px;
+      background: linear-gradient(135deg, var(--primary), var(--primary-light));
+      border-radius: 50%; display: flex; align-items: center; justify-content: center;
+      font-size: 1.2rem; color: var(--white); margin: 0 auto 14px;
+    }
+    .contact-card h3 { font-family: 'Playfair Display', serif; font-size: 1rem; color: var(--primary-dark); margin-bottom: 6px; }
+    .contact-card a { color: var(--primary); font-size: 0.87rem; text-decoration: none; transition: color .2s; }
+    .contact-card a:hover { color: var(--primary-dark); }
+
+    /* ── FOOTER ── */
+    footer { background: var(--primary-dark); color: rgba(255,255,255,0.65); padding: 52px 24px 28px; }
+    .footer-inner { max-width: 1100px; margin: 0 auto; display: flex; flex-wrap: wrap; gap: 40px; justify-content: space-between; margin-bottom: 40px; }
+    .footer-brand h2 { font-family: 'Playfair Display', serif; color: var(--white); font-size: 1.4rem; margin-bottom: 10px; }
+    .footer-brand p { font-size: 0.87rem; max-width: 240px; line-height: 1.7; }
+    .footer-col h4 { color: var(--accent); font-size: 0.73rem; letter-spacing: 0.18em; text-transform: uppercase; margin-bottom: 16px; font-weight: 700; }
+    .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+    .footer-col a { color: rgba(255,255,255,0.65); text-decoration: none; display: flex; align-items: center; gap: 8px; transition: color .2s; font-size: 0.88rem; }
+    .footer-col a:hover { color: var(--accent); }
+    .footer-social { display: flex; gap: 12px; margin-top: 4px; }
+    .footer-social a {
+      width: 38px; height: 38px; background: rgba(255,255,255,0.08); border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      color: rgba(255,255,255,0.7); font-size: 1rem; text-decoration: none;
+      transition: background .2s, color .2s;
+    }
+    .footer-social a:hover { background: var(--primary-light); color: var(--white); }
+    .footer-bottom {
+      max-width: 1100px; margin: 0 auto;
+      border-top: 1px solid rgba(255,255,255,0.1); padding-top: 22px;
+      display: flex; flex-wrap: wrap; justify-content: space-between; gap: 10px; font-size: 0.82rem;
+    }
+    .footer-bottom a { color: rgba(255,255,255,0.5); text-decoration: none; }
+
+    /* divider between sections */
+    .section-divider { border: none; border-top: 2px solid var(--border); max-width: 1000px; margin: 0 auto; }
+  </style>
+</head>
+<body>
+
+  <!-- TOP BAR -->
+  <div class="topbar">
+    <div class="inner">
+      <div class="contact-links">
+        <a href="tel:+50942362339"><i class="fa fa-phone"></i> (+509) 42362339</a>
+        <a href="https://wa.me/message/CVSDIBCZATBCF1" target="_blank"><i class="fa-brands fa-whatsapp"></i> WhatsApp</a>
+        <a href="mailto:jamesloreus@gmail.com"><i class="fa fa-envelope"></i> jamesloreus@gmail.com</a>
+      </div>
+      <div class="social-links">
+        <a href="https://web.facebook.com/Jamesandlucia" target="_blank" aria-label="Facebook"><i class="fa-brands fa-facebook"></i></a>
+        <a href="https://twitter.com/JamesandLucia2" target="_blank" aria-label="Twitter"><i class="fa-brands fa-twitter"></i></a>
+        <a href="https://www.instagram.com/jamesandlucia/" target="_blank" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+        <a href="https://www.linkedin.com/in/james-and-lucia-26a96819b/" target="_blank" aria-label="LinkedIn"><i class="fa-brands fa-linkedin"></i></a>
+      </div>
+    </div>
+  </div>
+
+  <!-- NAV -->
+  <nav class="main-nav">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-brand">James &amp; Lucia</a>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="#broadcast" class="active">Broadcast</a></li>
+        <li><a href="#schedule">Schedule</a></li>
+        <li><a href="#verse">Verse</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-label">Live Broadcasting</div>
+    <h1>Radio Télé Brillant Haiti</h1>
+    <div class="blue-divider"></div>
+    <p>Sow the Gospel everywhere — tune in to live radio, watch our broadcasts, and join us in prayer every day.</p>
+    <div class="hero-btns">
+      <a href="#broadcast" class="btn-primary"><i class="fa fa-radio"></i> Listen Live</a>
+      <a href="https://www.paypal.com/donate?hosted_button_id=HWWGUEHN6MP86" target="_blank" class="btn-outline"><i class="fa fa-heart"></i> Support Us</a>
+    </div>
+  </section>
+
+  <!-- MARQUEE -->
+  <div class="welcome-banner">
+    <span>📡 Radio TV Brillant Haiti — SOW THE GOSPEL EVERYWHERE &nbsp;•&nbsp; 📡 Radio TV Brillant Haiti — SOW THE GOSPEL EVERYWHERE &nbsp;•&nbsp; 📡 Radio TV Brillant Haiti — SOW THE GOSPEL EVERYWHERE &nbsp;•&nbsp;</span>
+  </div>
+
+  <!-- BROADCAST SECTION -->
+  <div class="section" id="broadcast">
+    <div class="section-title">🎙️ Live Broadcast</div>
+    <div class="section-sub">Listen to our radio station and watch our latest video broadcast.</div>
+
+    <div class="media-grid">
+      <!-- Radio Player -->
+      <div class="media-card">
+        <div class="media-card-header">
+          <i class="fa fa-radio"></i>
+          <span>Radio Brillant Haiti (RBH)</span>
+        </div>
+        <div class="media-card-body">
+          <p>Stream live radio — music, preaching, news, and culture from Haiti, 24/7.</p>
+          <iframe src="https://zeno.fm/player/radio-brillant-haiti" height="150" frameborder="0" scrolling="no" title="Radio Brillant Haiti"></iframe>
+        </div>
+      </div>
+
+      <!-- YouTube Player -->
+      <div class="media-card">
+        <div class="media-card-header">
+          <i class="fa-brands fa-youtube"></i>
+          <span>Latest Broadcast</span>
+        </div>
+        <div class="media-card-body">
+          <p>Watch our most recent service or teaching broadcast on YouTube.</p>
+          <div style="position:relative; padding-bottom:56.25%; height:0; overflow:hidden; border-radius:10px;">
+            <iframe
+              src="https://www.youtube.com/embed/FHXl16awn9M"
+              style="position:absolute; top:0; left:0; width:100%; height:100%; border-radius:10px;"
+              frameborder="0" allowfullscreen title="James and Lucia Broadcast">
+            </iframe>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <hr class="section-divider" />
+
+  <!-- DONATE BAR -->
+  <div class="donate-bar">
+    <strong>❤️ Help us keep broadcasting — your support makes it possible.</strong>
+    <a class="btn-donate" href="https://www.paypal.com/donate?hosted_button_id=HWWGUEHN6MP86" target="_blank">
+      <i class="fa fa-heart"></i> Donate via PayPal
+    </a>
+  </div>
+
+  <hr class="section-divider" />
+
+  <!-- SCHEDULE SECTION -->
+  <div class="section" id="schedule">
+    <div class="section-title">📅 Broadcast Schedule</div>
+    <div class="section-sub">Join us for prayer, worship, and Bible study throughout the week.</div>
+
+    <div class="schedule-grid">
+
+      <div class="schedule-card">
+        <div class="schedule-icon"><i class="fa fa-sun"></i></div>
+        <h3>Noon Prayer</h3>
+        <div class="time">Mon – Fri &bull; 12:00 PM</div>
+        <p>Daily prayer with Sainteté Church of Fourgy. Come seek God in the middle of your day.</p>
+      </div>
+
+      <div class="schedule-card">
+        <div class="schedule-icon"><i class="fa fa-moon"></i></div>
+        <h3>Midnight Prayer</h3>
+        <div class="time">Mon – Fri &bull; 12:00 AM</div>
+        <p>With Pastor James Loreus &amp; Pastor Lucia Milen Loreus. Spiritual warfare and intercession every business day.</p>
+      </div>
+
+      <div class="schedule-card">
+        <div class="schedule-icon"><i class="fa fa-book-bible"></i></div>
+        <h3>Bible Study</h3>
+        <div class="time">Every Sunday &bull; 7:00 PM</div>
+        <p>With Pastor James Loreus — driving you closer to God and building your moral foundation.</p>
+      </div>
+
+      <div class="schedule-card">
+        <div class="schedule-icon"><i class="fa fa-church"></i></div>
+        <h3>Worship Service</h3>
+        <div class="time">Sunday &bull; 8:30 AM (Haiti)</div>
+        <p>Mission Église Évangélique de la Sainteté de Fourgy — Sunday morning worship service.</p>
+      </div>
+
+      <div class="schedule-card">
+        <div class="schedule-icon"><i class="fa-brands fa-facebook"></i></div>
+        <h3>Facebook &amp; YouTube</h3>
+        <div class="time">Live &amp; On-Demand</div>
+        <p>Follow James &amp; Lucia on Facebook and YouTube to catch every service and broadcast.</p>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- VERSE SECTION -->
+  <section class="verse-section" id="verse">
+    <div class="label">Verse of the Month — August 2025</div>
+    <div class="verse-reference">Romans 8:31</div>
+    <div class="verse-month">New International Version</div>
+    <div class="verse-text">
+      "What, then, shall we say in response to these things? If God is for us, who can be against us?"
+    </div>
+    <p class="verse-commentary">
+      This verse is part of a passage where the Apostle Paul emphasizes the security believers have in Christ.
+      He reassures Christians that if God is on their side, no one and nothing can stand against them.
+      It is a statement of confidence in God's protection, power, and love — encouraging believers to trust in Him
+      no matter what challenges they face.
+    </p>
+  </section>
+
+  <!-- CONTACT SECTION -->
+  <div class="section" id="contact">
+    <div class="section-title">📞 Contact Us</div>
+    <div class="section-sub">Reach out to us — we'd love to hear from you.</div>
+
+    <div class="contact-grid">
+
+      <div class="contact-card">
+        <div class="icon"><i class="fa fa-phone"></i></div>
+        <h3>Call Us</h3>
+        <a href="tel:+50942362339">(+509) 42362339</a>
+      </div>
+
+      <div class="contact-card">
+        <div class="icon"><i class="fa-brands fa-whatsapp"></i></div>
+        <h3>WhatsApp</h3>
+        <a href="https://wa.me/message/CVSDIBCZATBCF1" target="_blank">Chat on WhatsApp</a>
+      </div>
+
+      <div class="contact-card">
+        <div class="icon"><i class="fa fa-envelope"></i></div>
+        <h3>Email</h3>
+        <a href="mailto:jamesloreus@gmail.com">jamesloreus@gmail.com</a>
+      </div>
+
+      <div class="contact-card">
+        <div class="icon"><i class="fa-brands fa-facebook"></i></div>
+        <h3>Facebook</h3>
+        <a href="https://web.facebook.com/Jamesandlucia" target="_blank">James &amp; Lucia</a>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <h2>Radio Télé Brillant Haiti</h2>
+        <p>Sowing the Gospel everywhere — broadcasting faith, hope, and love from Haiti to the world.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Contact</h4>
+        <ul>
+          <li><a href="tel:+50942362339"><i class="fa fa-phone"></i> (+509) 42362339</a></li>
+          <li><a href="mailto:jamesloreus@gmail.com"><i class="fa fa-envelope"></i> jamesloreus@gmail.com</a></li>
+          <li><a href="https://wa.me/message/CVSDIBCZATBCF1" target="_blank"><i class="fa-brands fa-whatsapp"></i> WhatsApp</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Follow Us</h4>
+        <div class="footer-social">
+          <a href="https://web.facebook.com/Jamesandlucia" target="_blank" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+          <a href="https://twitter.com/JamesandLucia2" target="_blank" aria-label="Twitter"><i class="fa-brands fa-twitter"></i></a>
+          <a href="https://www.instagram.com/jamesandlucia/" target="_blank" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+          <a href="https://www.linkedin.com/in/james-and-lucia-26a96819b/" target="_blank" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>&copy; 2026 James &amp; Lucia. All Rights Reserved.</span>
+      <span>Created by <a href="mailto:jamesloreus@gmail.com">James Loreus</a></span>
+    </div>
+  </footer>
+
+</body>
+</html>
